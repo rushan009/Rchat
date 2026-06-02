@@ -1,10 +1,9 @@
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL:'https://rchat-8p4d.onrender.com',
-    withCredentials:true
+    baseURL: import.meta.env.VITE_API_URL,
+    withCredentials: true
 })
-
 export const loginUser = async (email, password) => {
     const response = await api.post('/api/auth/login', {email, password})
     return response.data
