@@ -22,9 +22,14 @@ const app = express();
 const httpServer = createServer(app)
 const io = initSocket(httpServer)
 
+// server/src/index.js
+
 app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: true
+  origin: [
+    "http://localhost:5173",           // for local dev
+    "https://rchat-theta.vercel.app"   // your Vercel frontend
+  ],
+  credentials: true                    // keep this since you use withCredentials
 }))
 app.use(express.json());
 app.use(cookieParser());
