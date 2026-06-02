@@ -22,7 +22,11 @@ export const registerUser = async (req, res) => {
     const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-    res.cookie("token", token, { httpOnly: true });
+    res.cookie('token', token, {
+  httpOnly: true,
+  sameSite: 'none',  // required for cross-domain
+  secure: true       // required for sameSite: none
+})
     return res.status(201).json({
       message: "User registered Successfully",
       user: {
@@ -56,7 +60,11 @@ export const loginUser = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-    res.cookie("token", token, { httpOnly: true });
+    res.cookie("token", token, {
+  httpOnly: true,
+  sameSite: 'none',
+  secure: true
+});
     return res.status(200).json({
       message: "User Login Successfully",
       user: {
@@ -73,6 +81,10 @@ export const loginUser = async (req, res) => {
 };
 
 export const logOutUser = async (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("token", {
+  httpOnly: true,
+  sameSite: 'none',
+  secure: true
+});
   return res.status(200).json({ message: "Logged out successfully" });
 };
