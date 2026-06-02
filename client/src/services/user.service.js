@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL:'http://localhost:5000',
+    baseURL:'https://rchat-8p4d.onrender.com',
     withCredentials:true
 })
 
